@@ -1,6 +1,4 @@
 import { Controller, Get } from '@nestjs/common';
-import { lastValueFrom } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { MoviesService } from './movies.service';
 
@@ -10,7 +8,7 @@ export class MoviesController {
 
     @Get()
     async getAll(): Promise<any> {
-        const movies = await lastValueFrom(this.moviesService.getAll().pipe(map((response) => response.data.data)));
+        const movies = await this.moviesService.getAll();
 
         return movies;
     }

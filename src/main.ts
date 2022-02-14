@@ -3,6 +3,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { AppModule } from './app.module';
 import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
@@ -18,6 +19,8 @@ async function bootstrap() {
         }
     });
 
+    app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
     const options = new DocumentBuilder()
         .setTitle('X - API')
         .setDescription('API Gateway')
@@ -27,7 +30,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('api', app, document);
 
-    await app.listen(3003);
+    await app.listen(process.env.PORT);
 }
 
 bootstrap();
