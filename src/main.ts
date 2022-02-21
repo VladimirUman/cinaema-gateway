@@ -5,6 +5,8 @@ import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
+import { configuration } from './config/configuration';
+
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
@@ -30,7 +32,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('api', app, document);
 
-    await app.listen(process.env.PORT);
+    await app.listen(configuration.port);
 }
 
 bootstrap();
