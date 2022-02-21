@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
+import { contentParser } from 'fastify-multer';
 import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
@@ -20,6 +21,8 @@ async function bootstrap() {
             }
         }
     });
+
+    app.register(contentParser);
 
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 

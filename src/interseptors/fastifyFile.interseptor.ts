@@ -1,5 +1,15 @@
-import { CallHandler, ExecutionContext, Inject, mixin, NestInterceptor, Optional, Type } from '@nestjs/common';
+import {
+    CallHandler,
+    ExecutionContext,
+    Inject,
+    InternalServerErrorException,
+    mixin,
+    NestInterceptor,
+    Optional,
+    Type
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { Request } from 'express';
 import FastifyMulter from 'fastify-multer';
 import { Options, Multer } from 'multer';
 
@@ -42,9 +52,9 @@ export function FastifyFilesInterceptor(
     return Interceptor as Type<NestInterceptor>;
 }
 
-export const xlsFileFilter = (req, file, callback) => {
+export const xlsFileFilter = (req: Request, file: Express.Multer.File, callback) => {
     if (!file.originalname.match(/\.(xls|xlsx)$/)) {
-        return callback(new Error('Only excel files are allowed!'), false);
+        return callback(new InternalServerErrorException('Only excel files are allowed!'), false);
     }
     callback(null, true);
 };
