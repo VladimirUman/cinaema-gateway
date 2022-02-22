@@ -5,7 +5,7 @@ import { ClientProxy } from '@nestjs/microservices';
 export class FilesService {
     constructor(@Inject('FILE_MICROSERVICE') private readonly client: ClientProxy) {}
 
-    showFile() {
-        return this.client.send({ role: 'file', cmd: 'show-file' }, {}); // will be fixed after microservice creating
+    async filesUpload(files: Express.Multer.File[]) {
+        return this.client.send({ role: 'file', cmd: 'upload-files' }, files);
     }
 }
