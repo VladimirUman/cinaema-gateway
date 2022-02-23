@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import { HttpModule } from '@nestjs/axios';
 import { MoviesService } from './movies.service';
-import { AccountModule } from 'src/account/account.module';
+import { AccountModule } from 'src/modules/account/account.module';
 
 @Module({
     imports: [HttpModule, AccountModule],

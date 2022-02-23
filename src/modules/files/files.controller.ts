@@ -4,7 +4,7 @@ import { Request } from 'express';
 import { memoryStorage } from 'multer';
 
 import { FilesService } from './files.service';
-import { FastifyFilesInterceptor, xlsFileFilter } from '../interseptors/fastifyFile.interseptor';
+import { FastifyFilesInterceptor, xlsFileFilter } from '../../interseptors/fastifyFile.interseptor';
 
 @Controller('files')
 @ApiTags('Files')
